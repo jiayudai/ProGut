@@ -1,0 +1,56 @@
+﻿Bacteria,Filename
+Bacillus clausii UBBC-07,GCF_000981315.1_ASM98131v1_genomic.gbff
+Bacillus coagulans GBI-30(6086),GCF_000756285.1_ASM75628v1_genomic.gbff
+Bacillus coagulans Unique IS-2,GCF_001578455.1_ASM157845v1_genomic.gbff
+Bacillus subtilis KATMIRA1933,GCF_000691185.1_ASM69118v1_genomic.gbff
+Bifidobacterium animalis subsp. Lactis AD011,GCF_000021425.1_ASM2142v1_genomic.gbff
+Bifidobacterium animalis subsp. Lactis B420,GCF_000277325.1_ASM27732v1_genomic.gbff
+Bifidobacterium animalis subsp. Lactis BB-12,GCF_000025245.2_ASM2524v2_genomic.gbff
+Bifidobacterium animalis subsp. Lactis CNCM I-2494,GCF_000220885.1_ASM22088v1_genomic.gbff
+Bifidobacterium animalis subsp. Lactis HN019,GCF_003606305.1_ASM360630v1_genomic.gbff
+Bifidobacterium bifidum BGN4,GCF_000265095.1_ASM26509v1_genomic.gbff
+Bifidobacterium breve UCC2003,GCF_000220135.1_ASM22013v1_genomic.gbff
+Bifidobacterium longum CECT 7347,GCF_001050555.1_ASM105055v1_genomic.gbff
+Bifidobacterium longum subsp. Infantis 35624,GCF_001719085.1_ASM171908v1_genomic.gbff
+Bifidobacterium longum subsp. Infantis ATCC 15697,GCF_000020425.1_ASM2042v1_genomic.gbff
+Bifidobacterium longum subsp. Infantis CECT 7210,GCF_001051015.2_ASM105101v2_genomic.gbff
+Clostridium butyricum TO-A,GCF_001646605.1_ASM164660v1_genomic.gbff
+Corynebacterium pseudodiphtheriticum 0-90104,GCF_000466825.2_ASM46682v2_genomic.gbff
+Escherichia coli M-17,GCF_000471365.1_E_coliM17-1.0_genomic.gbff
+Faecalibacterium prausnitzii A2-165,GCF_000162015.1_ASM16201v1_genomic.gbff
+Faecalibacterium prausnitzii ATCC 27766,GCF_003324115.1_ASM332411v1_genomic.gbff
+Lactobacillus acidophilus La-14,GCF_000389675.2_ASM38967v2_genomic.gbff
+Lactobacillus acidophilus LA1,GCF_002286215.1_ASM228621v1_genomic.gbff
+Lactobacillus acidophilus NCFM,GCF_000011985.1_ASM1198v1_genomic.gbff
+Lactobacillus brevis KB290,GCF_000359625.1_ASM35962v1_genomic.gbff
+Lactobacillus coryniformis CECT 5711,GCF_000283115.1_ASM28311v1_genomic.gbff
+Lactobacillus crispatus CTV-05,GCF_000165885.1_ASM16588v1_genomic.gbff
+Lactobacillus delbrueckii subsp. Bulgaricus 2038,GCF_000191165.1_ASM19116v1_genomic.gbff
+Lactobacillus fermentum CECT5716,GCF_000210515.1_ASM21051v1_genomic.gbff
+Limosilactobacillus fermentum VRI-003,GCA_002072085.1_ASM207208v1_genomic.gbff
+Lactobacillus gasseri CECT 5714,GCF_000283135.1_ASM28313v1_genomic.gbff
+Lactobacillus helveticus R0052,GCF_000165775.1_ASM16577v3_genomic.gbff
+Lactobacillus johnsonii NCC 533,GCF_000008065.1_ASM806v1_genomic.gbff
+Lacticaseibacillus paracasei Lpc-37,GCF_002762235.1_ASM276223v1_genomic.gbff
+Lactobacillus paracasei subsp. paracasei 8700:2,GCF_000155515.2_ASM15551v2_genomic.gbff
+Lactiplantibacillus plantarum 299v,GCF_001888735.1_ASM188873v1_genomic.gbff
+Limosilactobacillus reuteri JCM 1081,GCF_002112225.1_ASM211222v1_genomic.gbff
+Limosilactobacillus reuteri RC-14,GCF_002762415.1_ASM276241v1_genomic.gbff
+Lactobacillus reuteri SD2112,GCF_000159455.2_ASM15945v2_genomic.gbff
+Limosilactobacillus reuteri subsp. Rodentium 100-23,GCF_000168255.1_ASM16825v1_genomic.gbff
+Lactobacillus rhamnosus GG,GCF_003353455.1_ASM335345v1_genomic.gbff
+Lactobacillus rhamnosus GG (ATCC 53103),GCF_000026505.1_ASM2650v1_genomic.gbff
+Lacticaseibacillus rhamnosus GR-1,GCF_002762445.1_ASM276244v1_genomic.gbff
+Lacticaseibacillus rhamnosus HCT70,GCF_001756565.1_ASM175656v1_genomic.gbff
+Lactobacillus rhamnosus HN001,GCF_000173255.4_ASM17325v2_genomic.gbff
+Lactobacillus rhamnosus Lc 705,GCF_000026525.1_ASM2652v1_genomic.gbff
+Lactobacillus rhamnosus DSM 14870,GCF_002287945.1_ASM228794v1_genomic.gbff
+Lactobacillus rhamnosus R0011,GCF_000235785.1_ASM23578v2_genomic.gbff
+Lactobacillus salivarius CECT 5713,GCF_000143435.1_ASM14343v1_genomic.gbff
+Lactobacillus salivarius UCC118,GCF_000008925.1_ASM892v1_genomic.gbff
+Oxalobacter formigenes OxCC13,GCF_002128345.1_ASM212834v1_genomic.gbff
+Staphylococcus epidermidis ATCC 12228,GCF_008868245.1_ASM886824v1_genomic.gbff
+Streptococcus salivarius K12,GCF_000286295.1_SsalK12v1_genomic.gbff
+Streptococcus salivarius M18,GCF_000225385.1_ASM22538v2_genomic.gbff
+Streptococcus thermophilus MN-ZLW-002,GCF_000262675.1_ASM26267v1_genomic.gbff
+Weissella cibaria CMU,GCF_001951075.2_ASM195107v2_genomic.gbff

@@ -1,0 +1,61 @@
+setopt interactivecomments
+
+# Extract Enzymes
+python extract_EC_GBK.py primaryGBKtable.csv primaryECtable.csv primaryGBK_files
+python extract_EC_GBK.py secondaryGBKtable.csv secondaryECtable.csv secondaryGBK_files
+# Has been specified in the code: Input file-tnumber_reference.csv; Output file-tnumberECtable.csv
+python extract_EC_KEGG.py
+
+# Extract Pathways from KEGG based on Enzymes
+python ec2pathway.py primaryECtable.csv primary_pathway.csv
+python ec2pathway.py secondaryECtable.csv secondary_pathway.csv
+python ec2pathway.py tnumberECtable.csv tnumber_pathway.csv
+
+# Data Cleaning-Enzyme data + Pathway data
+Rscript enzymeDataCleaning.R
+Rscript pathwayDataCleaning.R
+
+
+# Sukanya's Part
+# Needs two inputs: Bact_EC.csv and EC_Pathway.csv in an input directory called "Input_files"
+# and gives Bact_Pathway_Fuzzy_Ranking.csv as output in an output directory called "Output_files"
+mkdir Input_files Output_files
+cp Bact_EC.csv EC_Pathway.csv Input_files/
+# add here how to download metabolicIndex.py
+# git clone https://github.com/schandrababu/BMI.git
+# cp BMI/Metabolic_index.py .
+# pip install pandas openpyxl
+python Metabolic_index.py
+cp Output_files/Bact_Pathway_Fuzzy_Ranking.csv .
+
+
+# Gene and Function Characterization
+mkdir heatmaps
+Rscript createTrees.R
+# Data Exploration
+Rscript postHeatmap_rowSum.R
+
+mkdir trees
+Rscript cutTrees.R
+mkdir cut_results
+Rscript analyzeTrees.R
+Rscript statisticsTrees.R
+
+# Data Validation-on Genus-Species level
+mkdir optimal_level
+# manually choosing the level 3 as the optimal level
+Rscript analyzeGenus.R cut_results/res_l3_removed.csv
+mkdir data_validation_results
+Rscript bacteria_dataValidation.R optimal_level/research_res_l3_removed_nonempty.csv
+#Rscript genus_dataValidation1.R optimal_level/research_res_l3_removed_compared.csv optimal_level/research_res_l3_removed_nonempty.csv Group1 Group2
+
+# Genus and Species Comparison
+Rscript normalizeECcount.R
+Rscript findTop10Pathway.R
+Rscript intersectUnion.R
+Rscript densityPlot_chiTest.R
+
+# Shiny app
+# mkdir shiny_app
+# Rscript shiny_app_data_preparation.R optimal_level/research_res_l3_removed_length.csv
+Rscript shiny_app_data_preparation.R optimal_level/research_res_l3_removed_length.csv optimal_level/research_res_l3_removed_genus_species.csv
