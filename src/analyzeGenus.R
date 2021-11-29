@@ -120,4 +120,36 @@ colnames(research_res_l3_removed_compared) <- c("GroupA_ID","GroupB_ID","GroupA"
 outputFile <- gsub("_nonempty.csv","_compared.csv",outputFile)
 write.csv(research_res_l3_removed_compared, file =outputFile, row.names =F)
 
+##################### 6. Venn Diagram #####################
+# Find pathways that are unique for every individual group between multiple groups at the genus level
+research_res_l3_removed_nonempty <- read.csv("optimal_level/research_res_l3_removed_nonempty.csv",stringsAsFactors = F)
+research_res_l3_removed_nonempty_path_genus <- research_res_l3_removed_nonempty[,c(1,2,4)]
+group1_paths_genus <- unlist(strsplit(research_res_l3_removed_nonempty_path_genus$common_path[1], ","))
+group2_paths_genus <- unlist(strsplit(research_res_l3_removed_nonempty_path_genus$common_path[2], ","))
+group3_paths_genus <- unlist(strsplit(research_res_l3_removed_nonempty_path_genus$common_path[3], ","))
+group4_paths_genus <- unlist(strsplit(research_res_l3_removed_nonempty_path_genus$common_path[4], ","))
+
+library(VennDiagram)
+library(RColorBrewer)
+myCol <- brewer.pal(4, "Pastel2")
+# group2_paths_genus
+group_paths_all_genus <- list("group1Genus"=group1_paths_genus, "group2Genus"=group2_paths_genus, "group3Genus"=group3_paths_genus, "group4Genus"=group4_paths_genus)
+venn.diagram(group_paths_all_genus,filename = 'data_validation_results/Venn_diagram_groups_genus.png',
+             lwd = 2,
+             lty = 'blank',
+             fill = myCol)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
