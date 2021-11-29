@@ -28,9 +28,9 @@ setopt interactivecomments
 * Step8 and Step9 are for data cleaning.
 * Step10 to Step15 are for genomic enzymes and functional characterization.
 * Step16 is for data exploration.
-* Step17 and Step18 are for data visualization and data validation.
-* Step19 to Step22 are for genus and species comparison.
-* Step23 is for data visualization (R shiny app).
+* Step17 to Step19 are for data visualization and data validation.
+* Step20 to Step22 are for genus and species comparison.
+* Step24 is for data visualization (R shiny app).
 
 # 1. Extract EC numbers for Primary Group
 
