@@ -11,6 +11,9 @@ python ec2pathway.py primaryECtable.csv primary_pathway.csv
 python ec2pathway.py secondaryECtable.csv secondary_pathway.csv
 python ec2pathway.py tnumberECtable.csv tnumber_pathway.csv
 
+# Extract Biological Context from KEGG
+python keggRestTable.py > keggPathway.csv
+
 # Data Cleaning-Enzyme data + Pathway data
 Rscript enzymeDataCleaning.R
 Rscript pathwayDataCleaning.R
@@ -41,11 +44,12 @@ mkdir cut_results
 Rscript analyzeTrees.R
 Rscript statisticsTrees.R
 
-# Data Validation-on Genus-Species level
+# Data Validation-on Genus, Species, and Strain levels
 mkdir optimal_level
+mkdir data_validation_results
 # manually choosing the level 3 as the optimal level
 Rscript analyzeGenus.R cut_results/res_l3_removed.csv
-mkdir data_validation_results
+Rscript analyzeSpecies.R cut_results/res_l3_removed.csv
 Rscript bacteria_dataValidation.R optimal_level/research_res_l3_removed_nonempty.csv
 #Rscript genus_dataValidation1.R optimal_level/research_res_l3_removed_compared.csv optimal_level/research_res_l3_removed_nonempty.csv Group1 Group2
 
