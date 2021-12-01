@@ -478,7 +478,7 @@ Two inputs are needed to complete Step12:
 
 ```{zsh}
 rm -rf trees
-# Create a new directory trees to save the results of this step
+# Create a new directory "trees" to save the results of this step
 mkdir trees
 
 ```
@@ -544,7 +544,7 @@ head cut_results/freq_final_l3_removed.csv
 
 ## 14.1 Function
 
-Analyze the intersect matrixes with jaccard indexes, generated from Step13. The percentages calculated based on the frequency of the values in each intersect matrix are calculated based on six categories: "Values = 0", "Values > 0 AND <= 0.5", "Values > 0.5 AND < 1", "Values = 1", "have intersect and union length is 1", and "have intersect and union length is not 1".
+Analyze the intersect matrixes with Jaccard indexes, generated from Step13. The percentages calculated based on the frequency of the values in each intersect matrix are calculated based on six categories: "Values = 0", "Values > 0 AND <= 0.5", "Values > 0.5 AND < 1", "Values = 1", "have intersect and union length is 1", and "have intersect and union length is not 1".
 
 ## 14.2 Input file(s) for usage example
 
