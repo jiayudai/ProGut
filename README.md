@@ -278,7 +278,7 @@ One output file will be generated from Step8:
 
 **Output1: combined_ec.csv.** The table contains three kinds of information: 
 
-  * EC_number: EC numbers
+  * EC_number: Enzymes
   * Pathway: Pathways
   * Bacteria: Bacteria names
 ```{zsh}
@@ -291,7 +291,7 @@ head combined_ec.csv
 
 In this Step, two main things are performed:
 
-  * Combine the pathways of three bacteria sets (primary group, secondary group, T number group) based on the EC numbers obtained from Step1, Step2 and Step3. Reformat the pathways and delete redundant records.
+  * Combine the pathways of three bacteria sets (primary group, secondary group, T number group) based on the EC numbers obtained from Step1, Step2, and Step3. Reformat the pathways and delete redundant records.
   * Prepare inputs for the next step (Step10).
 
 ## 9.2 Input file(s) for usage example
@@ -402,7 +402,7 @@ head Bact_Pathway_Fuzzy_Ranking.csv
 head keggPathway.csv
 ```
 
-**Input3: combined_ec.csv.** The table contains unique EC numbers for each bacteria.
+**Input3: combined_ec.csv.** The table contains unique EC numbers for each bacterium.
 ```{zsh}
 head combined_ec.csv
 ```
@@ -464,7 +464,7 @@ In the pathway matrix, each row represents one bacterium while each column prese
 
 ## 12.1 Function
 
-Cut the Genimic Enzyme tree and the Function tree at different levels: Level 3,4,5,10,20,30,40,50 respectively and save the cut results for each level.
+Cut the Genimic Enzyme tree and the Function tree at 8 different levels: Level 3,4,5,10,20,30,40,50 respectively and save the cut results for each level.
 
 ## 12.2 Input file(s) for usage example
 
@@ -499,7 +499,7 @@ Two kinds of outputs will be generated from Step12:
 
 ## 13.1 Function
 
-For each cut level, the cut results of every cluster are compared between the Genomic Enzyme Tree and the Funtion Tree. Each comparison pair compromises one cluster of the Genomic Enzyme Tree and one cluster of the Function Tree. Common bacteria and union bacteria list are created for each comparison pair.
+For each cut level, the presence of bacteria in every cluster are compared between the Genomic Enzyme Tree and the Funtion Tree. Each comparison pair compromises one cluster of the Genomic Enzyme Tree and one cluster of the Function Tree. Common bacteria and union bacteria list are created for each comparison pair.
 
 ## 13.2 Input file(s) for usage example
 
@@ -525,7 +525,7 @@ Rscript analyzeTrees.R
 
 Three kinds of outputs will be generated from Step13:
 
-**Output set1: intersect_matrix_df_l3_removed.csv, intersect_matrix_df_l4_removed.csv, intersect_matrix_df_l5_removed.csv, intersect_matrix_df_l10_removed.csv, intersect_matrix_df_l20_removed.csv, intersect_matrix_df_l30_removed.csv, intersect_matrix_df_l40_removed.csv, intersect_matrix_df_l50_removed.csv.** These tables are the intersect matrixes that contain the jaccard indexes of each cluster pair at 8 different levels. One of results of the intersect matrix (at Level3) can be:
+**Output set1: intersect_matrix_df_l3_removed.csv, intersect_matrix_df_l4_removed.csv, intersect_matrix_df_l5_removed.csv, intersect_matrix_df_l10_removed.csv, intersect_matrix_df_l20_removed.csv, intersect_matrix_df_l30_removed.csv, intersect_matrix_df_l40_removed.csv, intersect_matrix_df_l50_removed.csv.** These tables are the intersect matrixes that contain the Jaccard indexes of each cluster pair at 8 different levels. One of results of the intersect matrix (at Level3) can be:
 ```{zsh}
 head cut_results/intersect_matrix_df_l3_removed.csv
 ```
@@ -615,11 +615,11 @@ head -n2 data_exploration_rowsum.csv
 
 Conduct the analysis process based on the optimal level (Level3) from three perspectives:
 
-First, with the analysis outcomes, additonal information for each comparison pair can be attained at the genus level, including the unique genus list, the length of the unique genus list, common pathways, the length of common pathways, the length of the metabolism pathways, and the length of biosynthesis pathways.
+First, with the analysis outcomes, additonal information for each comparison pair can be attained at the genus level, including the unique genus list, the length of the unique genus list, pathways that are common between all genera within the pair, the length of common pathways, the length of the metabolism pathways, and the length of biosynthesis pathways.
 
 Second, remove the comparison pairs that do not have any common bacteria. For the rest of the comparison pairs, the common bacteria appearing in both the Genomic Enzyme Tree clusters and the Function Tree clusters are finalize the bacteria groups respectively.
 
-Third, compare the common pathways at the genus level among different bacteria groups to figure out the unique pathways for each bacteria group. Two bacteria groups form a comparison pair.
+Third, compare the common pathways at the genus level among every two bacteria groups and figure out the unique pathways for each bacteria group. A Venn diagram is further created to show pathways common across the four communities.
 
 ## 17.2 Input file(s) for usage example
 
@@ -646,6 +646,12 @@ mkdir optimal_level
 ```
 
 ```{zsh}
+rm -rf data_validation_results
+# Create a new directory "data_validation_results" to save the results of this step
+mkdir data_validation_results
+```
+
+```{zsh}
 # manually choosing the level 3 as the optimal level
 Rscript analyzeGenus.R cut_results/res_l3_removed.csv
 ```
@@ -659,7 +665,7 @@ Three output files will be generated from Step17:
 head -n2 optimal_level/research_res_l3_removed_length.csv
 ```
 
-**Output2: research_res_l3_removed_nonempty.csv.** The table includes the same information as Output1 but remove the comparison pairs that do not have any common bacteria.
+**Output2: research_res_l3_removed_nonempty.csv.** The table includes the same types of information as Output1 but the rows that do not have any common bacteria between the Genomic Enzyme Tree clusters and the Function Tree clusters are removed.
 ```{zsh}
 head -n2 optimal_level/research_res_l3_removed_nonempty.csv
 ```
@@ -669,15 +675,73 @@ head -n2 optimal_level/research_res_l3_removed_nonempty.csv
 head -n2 optimal_level/research_res_l3_removed_compared.csv
 ```
 
-# 18. Verify the Bacteria Groups and Methods
+**Output4: A PNG file "Venn_diagram_groups_genus.png".** The Venn diagram shows the common pathways among genus in the corresponding bacterial communities.
+
+# 18. Analyze the Optimal Level Based on the Species Level
 
 ## 18.1 Function
 
-Verify the result bacteria groups and methods used in this study.
+Conduct the analysis process based on the optimal level (Level3) from three perspectives:
+
+First, with the comparison outcomes of the Genomic Enzyme Tree clusters and the Function Tree clusters, additonal information for each comparison pair can be attained at the species level, including the unique species list, the length of the unique species list, pathways that are common between all species within the pair, the length of common pathways, the length of the metabolism pathways, and the length of biosynthesis pathways.
+
+Second, remove the comparison pairs that do not have any common bacteria. For the rest of the comparison pairs, the common bacteria appearing in both the Genomic Enzyme Tree clusters and the Function Tree clusters are finalized as the bacteria groups/communities respectively.
+
+Third, compare the common pathways at the species level among every two bacteria groups and figure out the unique pathways for each bacteria group. A Venn diagram is further created to show pathways common across the four communities.
 
 ## 18.2 Input file(s) for usage example
 
 Three inputs are needed to complete Step18:
+
+**Input1: "all_path_fuzzy_pathnames_sorted_wide_removed.rfile".** It is obtained from Output6 of Step11.
+
+**Input2: keggPathway.csv.** The table contains biological context such as pathway name and pathway class for each pathway id (map id) and is obtained from Output1 of Step7.
+```{zsh}
+head keggPathway.csv
+```
+
+**Input3: res_l3_removed.csv.** The table is the detailed comparision results of Level3 obtained from Output set2 of Step13.
+```{zsh}
+head -n2 cut_results/res_l3_removed.csv
+```
+
+## 18.3 Usage
+
+```{zsh results=FALSE}
+# manually choosing the level 3 as the optimal level
+Rscript analyzeSpecies.R cut_results/res_l3_removed.csv
+```
+
+## 18.4 Output file(s) for usuage example
+
+Three output files will be generated from Step18:
+
+**Output1: research_res_l3_removed_length_species.csv.** The table contains additional information for each bacteria group at the species level.
+```{zsh}
+head -n2 optimal_level/research_res_l3_removed_length_species.csv
+```
+
+**Output2: research_res_l3_removed_nonempty_species.csv.** The table includes the same types of information as Output1 but the rows that do not have any common bacteria between the Genomic Enzyme Tree clusters and the Function Tree clusters are removed.
+```{zsh}
+head -n2 optimal_level/research_res_l3_removed_nonempty_species.csv
+```
+
+**Output3: research_res_l3_removed_compared_species.csv.** The table contains the comparison results of pathways between different groups at the species level.
+```{zsh}
+head -n2 optimal_level/research_res_l3_removed_compared_species.csv
+```
+
+**Output4: A PNG file "Venn_diagram_groups_species.png".** The Venn diagram shows the common pathways among species in the corresponding bacterial communities.
+
+# 19. Verify the Bacteria Groups/Communities and Methods
+
+## 19.1 Function
+
+Verify the bacteria groups/communities and methods used to generate the communities in this study.
+
+## 19.2 Input file(s) for usage example
+
+Three inputs are needed to complete Step19:
 
 **Input1: research_res_l3_removed_nonempty.csv.** The table contains the detailed comparision results of Level3 obtained from Output2 of Step17.
 ```{zsh}
@@ -694,28 +758,22 @@ head Pathway_Bacteria_Fuzzy_Ranking.csv
 head keggPathway.csv
 ```
 
-## 18.3 Usage
-
-```{zsh}
-rm -rf data_validation_results
-# Create a new directory "data_validation_results" to save the results of this step
-mkdir data_validation_results
-```
+## 19.3 Usage
 
 ```{zsh}
 Rscript bacteria_dataValidation.R optimal_level/research_res_l3_removed_nonempty.csv
 ```
 
-## 18.4 Output file(s) for usage example
+## 19.4 Output file(s) for usage example
 
-Five kinds of outputs will be generated from Step18:
+Five kinds of outputs will be generated from Step19:
 
 **Output1: research_res_l3_removed_genus_species.csv.** The table contains the pathways and genu list for each bacteria group.
 ```{zsh}
 head -n2 optimal_level/research_res_l3_removed_genus_species.csv
 ```
 
-**Output2: research_res_l3_removed_genus_species_compared.csv.** The table contains the comparison results of every two bacteria groups at the bacteria level.
+**Output2: research_res_l3_removed_genus_species_compared.csv.** The table contains the comparison results of every two bacteria groups at the bacteria (strain) level.
 ```{zsh}
 head -n2 optimal_level/research_res_l3_removed_genus_species_compared.csv
 ```
@@ -736,15 +794,15 @@ head data_validation_results/unique_bact_paths.csv
 
 **Output5: A PNG file "Venn_diagram_clusters.png".** The venn diagram shows the relationships among cluster1 in the Genomic Enzyme Tree and cluster1 and cluster2 in the Function Tree.
 
-# 19. Normalize EC Counts of Each Bacteria Pathway Based on Genus Level and Species Level
+# 20. Normalize EC Counts of Each Bacteria Pathway Based on Genus Level and Species Level
 
-## 19.1 Function
+## 20.1 Function
 
 For each bacteria pathway, normalize EC counts for each pathway at genus level and species level respectively.
 
-## 19.2 Input file(s) for usage example
+## 20.2 Input file(s) for usage example
 
-Two inputs are needed to complete Step19:
+Two inputs are needed to complete Step20:
 
 **Input1: combined_pathway.csv.** The table contains unique pathways for each bacteria EC number and is obtained from Output1 of Step9.
 ```{zsh}
@@ -756,15 +814,15 @@ head combined_pathway.csv
 head keggPathway.csv
 ```
 
-## 19.3 Usage
+## 20.3 Usage
 
 ```{zsh}
 Rscript normalizeECcount.R
 ```
 
-## 19.4 Output file(s) for usuage example
+## 20.4 Output file(s) for usuage example
 
-Two output files will be generated from Step19:
+Two output files will be generated from Step20:
 
 **Output1: normalized_genus_ec_count.csv.** The table mainly contains the EC counts before normalization, reference EC counts, and normalized EC counts for each pathway at genus level. 
 ```{zsh}
@@ -776,35 +834,35 @@ head normalized_genus_ec_count.csv
 head normalized_species_ec_count.csv
 ```
 
-# 20. Find Top 10 Pathways Based on Genus Level and Species Level
+# 21. Find Top 10 Pathways Based on Genus Level and Species Level
 
-## 20.1 Function
+## 21.1 Function
 
 According to the EC counts for each pathway, pick top 10 pathways for each genus as well as each genus-species.
 
-## 20.2 Input file(s) for usage example
+## 21.2 Input file(s) for usage example
 
-Two inputs are needed to complete Step20:
+Two inputs are needed to complete Step21:
 
-**Input1: normalized_genus_ec_count.csv.** The table is obtained from Output1 of Step19 and mainly contains the normalized EC counts for each pathway based on genus level.
+**Input1: normalized_genus_ec_count.csv.** The table is obtained from Output1 of Step20 and mainly contains the normalized EC counts for each pathway based on genus level.
 ```{zsh}
 head normalized_genus_ec_count.csv
 ```
 
-**Input2: normalized_species_ec_count.csv.** The table is obtained from Output2 of Step19 and mainly contains the normalized EC counts for each pathway based on species level.
+**Input2: normalized_species_ec_count.csv.** The table is obtained from Output2 of Step20 and mainly contains the normalized EC counts for each pathway based on species level.
 ```{zsh}
 head normalized_species_ec_count.csv
 ```
 
-## 20.3 Usage
+## 21.3 Usage
 
 ```{zsh}
 Rscript findTop10Pathway.R
 ```
 
-## 20.4 Output file(s) for usuage example
+## 21.4 Output file(s) for usuage example
 
-Two output files will be generated from Step20:
+Two output files will be generated from Step21:
 
 **Output1: top10_genus_pathway.csv.** The table contains top 10 pathways based on the normalized EC counts for each genus.
 ```{zsh}
@@ -816,38 +874,38 @@ head -n2 top10_genus_pathway.csv
 head -n2 top10_genus_species_pathway.csv
 ```
 
-# 21. Compare Top 10 Pathways Based on Genus Level and Species Level
+# 22. Compare Top 10 Pathways Based on Genus Level and Species Level
 
-## 21.1 Function
+## 22.1 Function
 
 Compare top 10 pathways from two perspectives: 
 
   * Compare top 10 pathways between unduplicated genus pairs.
   * Compare top 10 pathways between unduplicated genus-species pairs. The comparisons between different genus and different species are ignored.
 
-## 21.2 Input file(s) for usage example
+## 22.2 Input file(s) for usage example
 
-Two inputs are needed to complete Step21:
+Two inputs are needed to complete Step22:
 
-**Input1: top10_genus_pathway.csv.** The table contains the top 10 pathways for each genus and is obtained from Output1 of Step20.
+**Input1: top10_genus_pathway.csv.** The table contains the top 10 pathways for each genus and is obtained from Output1 of Step21.
 ```{zsh}
 head -n2 top10_genus_pathway.csv
 ```
 
-**Input2: top10_genus_species_pathway.csv.** The table contains the top 10 pathways for each species and is obtained from Output2 of Step20.
+**Input2: top10_genus_species_pathway.csv.** The table contains the top 10 pathways for each species and is obtained from Output2 of Step21.
 ```{zsh}
 head -n2 top10_genus_species_pathway.csv
 ```
 
-## 21.3 Usage
+## 22.3 Usage
 
 ```{zsh}
 Rscript intersectUnion.R
 ```
 
-## 21.4 Output file(s) for usuage example
+## 22.4 Output file(s) for usuage example
 
-Two output files will be generated from Step21:
+Two output files will be generated from Step22:
 
 **Output1: intersect_union_genus_pathway.csv.** The table contains the comparison results between every pair with two genus.
 ```{zsh}
@@ -859,35 +917,35 @@ head -n2 intersect_union_genus_pathway.csv
 head -n2 intersect_union_sameGenus_species_pathway.csv
 ```
 
-# 22. Create a Density Plot and Peform the Chi-Squared test Based on Genus Level and Species Level
+# 23. Create a Density Plot and Peform the Chi-Squared test Based on Genus Level and Species Level
 
-## 22.1 Function
+## 23.1 Function
 
 Develop a density plot and Chi-Squared test to compare the difference between delta genus and delta genus-species. Delta genus means the differences between paired genus groups while delta genus-species means differences between paired genus-species groups.
 
-## 22.2 Input file(s) for usage example
+## 23.2 Input file(s) for usage example
 
-Two inputs are needed to complete Step22:
+Two inputs are needed to complete Step23:
 
-**Input1: intersect_union_genus_pathway.csv.** The table contains the comparison results between every pair with two genus, which is obtained from Output1 of Step21.
+**Input1: intersect_union_genus_pathway.csv.** The table contains the comparison results between every pair with two genus, which is obtained from Output1 of Step22.
 ```{zsh}
 head -n2 intersect_union_genus_pathway.csv
 ```
 
-**Input2: intersect_union_sameGenus_species_pathway.csv.** The table contains the comparison results between every pair with two genus-species, which is obtained from Output2 of Step21.
+**Input2: intersect_union_sameGenus_species_pathway.csv.** The table contains the comparison results between every pair with two genus-species, which is obtained from Output2 of Step22.
 ```{zsh}
 head -n2 intersect_union_sameGenus_species_pathway.csv
 ```
 
-## 22.3 Usage
+## 23.3 Usage
 
 ```{zsh}
 Rscript densityPlot_chiTest.R
 ```
 
-## 22.4 Output file(s) for usuage example
+## 23.4 Output file(s) for usuage example
 
-Two output files will be generated from Step22:
+Two output files will be generated from Step23:
 
 **Output1: A PDF file "Density_Plot.pdf".** The document contains an overlapped density plot based on the distributions of genus and species comparison results.
 
@@ -896,18 +954,18 @@ Two output files will be generated from Step22:
 head chi_squared.csv
 ```
 
-# 23. Format the Data for the Shiny Application ProGut
+# 24. Format the Data for the Shiny Application ProGut
 
-## 23.1 Function
+## 24.1 Function
 
 Format the data based on two data files obtained in the previous steps for the visulaization in the shiny application ProGut:
 
   * unique pathways for each bacteria EC number (combined_pathway.csv);
   * analysis results based on the optimal cut level (research_res_l3_removed_length.csv).
 
-## 23.2 Input file(s) for usage example
+## 24.2 Input file(s) for usage example
 
-Four inputs are needed to complete Step23:
+Four inputs are needed to complete Step24:
 
 **Input1: combined_pathway.csv.** The table contains unique pathways for each bacteria EC number and is obtained from Output1 of Step9.
 ```{zsh}
@@ -924,20 +982,20 @@ head keggPathway.csv
 head -n2 optimal_level/research_res_l3_removed_length.csv
 ```
 
-**Input4: research_res_l3_removed_genus_species.csv.** The table contains the comparison results of every two bacteria groups at the bacteria level. It is obtained from Output1 of Step18.
+**Input4: research_res_l3_removed_genus_species.csv.** The table contains the comparison results of every two bacteria groups at the bacteria level. It is obtained from Output1 of Step19.
 ```{zsh}
 head -n2 optimal_level/research_res_l3_removed_genus_species.csv
 ```
 
-## 23.3 Usage
+## 24.3 Usage
 
 ```{zsh}
 Rscript shiny_app_data_preparation.R optimal_level/research_res_l3_removed_length.csv optimal_level/research_res_l3_removed_genus_species.csv
 ```
 
-## 23.4 Output file(s) for usuage example
+## 24.4 Output file(s) for usuage example
 
-Three output files will be generated from Step23:
+Three output files will be generated from Step24:
 
 **Output1: shiny_pie_chart_data.csv.** The table contains the EC counts for each bacteria pathway. This file will be saved under the directory "shiny_app".
 ```{zsh}
