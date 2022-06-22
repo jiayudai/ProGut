@@ -1,0 +1,20 @@
+# pip install xmltodict
+mkdir xml_files
+mkdir xml_files_Thesis
+
+# Analyze taxonomy from literature
+# python titlesTO_id.py
+python lineage.py
+python xml_lineage.py unique_ncbi_taxid.csv xml_files
+python xml_lineageEx.py unique_ncbi_taxid.csv xml_files lineageEX_xml_parse_results.csv
+python xml_lineageEX_moreinfo.py lineageEX_xml_parse_results.csv xml_files lineageEX_xml_moreinfo.csv
+
+# Analyze taxonomy from thesis
+Rscript genusSpeciesThesis.R
+python organismsTO_taxid.py
+python xml_lineage.py myorganisms_taxid_unique.csv xml_files_Thesis
+python xml_lineageEx.py myorganisms_taxid_unique.csv xml_files_Thesis Thesis_lineageEX_xml_parse_results.csv
+python xml_lineageEX_moreinfo.py Thesis_lineageEX_xml_parse_results.csv xml_files_Thesis Thesis_lineageEX_xml_moreinfo.csv
+
+# SourceTable
+Rscript metabolic_organism.R
